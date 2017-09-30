@@ -1,10 +1,7 @@
 import React, { Component} from 'react';
-import { Layout, Menu } from 'antd';
+import { Menu } from 'antd';
 //侧边栏Menu
 export default class MenuItem extends Component{
-    constructor(props){
-     super(props);
-    }
     static defaultProps={
       ClassName:["默认收藏"]
     }

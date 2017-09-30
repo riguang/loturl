@@ -1,11 +1,14 @@
 import React, { Component} from 'react';
 import '../css/UserIndex.less';
-import { Layout, Menu } from 'antd';
+import { Layout} from 'antd';
 import URLTable from './userIndex/URLTable';
 import MenuItem from './userIndex/MenuItem';
+import Store from './userIndex/Store';
+import { observer } from 'mobx-react';
+
 const { Header, Content, Footer, Sider } = Layout;
 
-
+@observer
 class UserIndex extends Component {
   constructor(props){
     super(props);
@@ -13,16 +16,18 @@ class UserIndex extends Component {
       selectedKey:1
     }
   };
+ 
   UpdateSelectedKey(selectedKey){
-    console.log(selectedKey+'获取成功');
+    console.log(selectedKey+'获取成功'+Object.keys(Store.favorite)[selectedKey-1]);
     this.setState({selectedKey});
+    Store.favorite._selectKey=Object.keys(Store.favorite)[selectedKey-1];
   };
   render() {
     return (
         <Layout>
         <Sider style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0}}>
           <div className="logo" />
-          <MenuItem ClassName={this.props.ClassName} UpdateSelectedKey={this.UpdateSelectedKey.bind(this)} />
+          <MenuItem ClassName={Object.keys(Store.favorite)} UpdateSelectedKey={this.UpdateSelectedKey.bind(this)} />
         </Sider>
         <Layout style={{ marginLeft: 200 }}>
           <Header style={{ background: '#fff', padding: 0 }} />
@@ -32,7 +37,7 @@ class UserIndex extends Component {
             </div>
           </Content>
           <Footer style={{ textAlign: 'center',backgroundColor:"#fff" }}>
-            Ant Design ©2016 Created by Ant UED
+            LotURL ©2017 Created by Shine
           </Footer>
         </Layout>
       </Layout>
