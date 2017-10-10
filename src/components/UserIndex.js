@@ -18,7 +18,28 @@ class UserIndex extends Component {
       selectedKeys:['1']
     }
   };
- 
+
+  getHomeData = async ()=>{
+    return await fetch('http://localhost:9999/',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      mode : 'cors',  //实现跨域
+      body: 'cmd=GetHomeData'
+    });
+  }
+  componentWillMount(){
+    this.getHomeData().then((response) => response.json())
+    .then((responseJson) => {
+      console.dir(responseJson);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
   UpdateSelectedKey(selectedKey){
     console.log(selectedKey+'获取成功'+Object.keys(Store.favorite)[selectedKey-1]);
     this.setState({selectedKey});
